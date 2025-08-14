@@ -30,12 +30,11 @@ public:
         inorder(root);
         int n=in.size();
         TreeNode* curr=root;
-        if(in.size()>0)
-        cout<<in[0]->val<<" ";
+        
 
         for(int i=1;i<n;i++)
         {
-            cout<<in[i]->val<<" ";
+           
             curr->left=NULL;
             curr->right=in[i];
 
