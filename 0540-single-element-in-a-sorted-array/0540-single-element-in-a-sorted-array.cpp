@@ -46,12 +46,6 @@ public:
                 }
             }
 
-            else if(mid == i && mid ==j )
-            {
-                cout<<"next else if: ";
-                return nums[mid];
-            }
-
             else
             {
                 return nums[mid];
