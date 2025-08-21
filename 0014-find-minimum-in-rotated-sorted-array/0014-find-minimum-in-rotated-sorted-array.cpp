@@ -21,6 +21,7 @@ int findpivot(vector<int>nums)
     return i;
 }
     int findMin(vector<int>& nums) {
+       //
         cout<<findpivot(nums);
 
         return nums[findpivot(nums)];
