@@ -1,6 +1,23 @@
 class Solution {
 public:
+    bool check(string ans)
+    {
+        int i=0;
+        int j=ans.size()-1;
 
+        while(i<j)
+        {
+            if(ans[i]!=ans[j])
+            {
+                return false;
+            }
+            i++;
+            j--;
+            
+        }
+        return true;
+
+    }
     bool isPalindrome(string s) {
         string ans="";
         for(int i=0;i<s.size();i++)
@@ -18,10 +35,10 @@ public:
                 ans+=s[i];
             }
         }
-        cout<<ans;
-        string rev=ans;
-        reverse(rev.begin(),rev.end());
+      //  cout<<ans;
+       // string rev=ans;
+       // reverse(rev.begin(),rev.end());
 
-        return ans==rev;
+        return check(ans);
     }
 };
