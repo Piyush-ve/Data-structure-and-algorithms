@@ -38,37 +38,28 @@ public:
         int n=board.size();
         int m=board[0].size();
 
+         vector<vector<bool>>vis(n,vector<bool>(m,false));
+
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
                 if(board[i][j]==word[0])
                 {
-                    q.push({i,j});
+                   vis[i][j]=true;
+
+                    if(helper(i,j, board,word,0,vis))
+                    return true;
+
+                    else
+                    vis[i][j]=false;
                 }
             }
         }
 
-        vector<vector<bool>>vis(n,vector<bool>(m,false));
-
-        while(!q.empty())
-        {
-            pair<int,int>curr=q.front();
-            q.pop();
-
-            int i=curr.first;
-            int j=curr.second;
-
-            vis[i][j]=true;
-
-            if(helper(i,j, board,word,0,vis))
-            return true;
-
-            else
-            vis[i][j]=false;
+       
 
 
-        }
         return false;
     }
 };
