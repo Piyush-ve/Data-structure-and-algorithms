@@ -26,7 +26,7 @@ public:
                     i++;
                 }
 
-                if(!pq.empty()&& pq.top()>=day)
+                if(!pq.empty())
                 {
                     event++;
                     pq.pop();                  
