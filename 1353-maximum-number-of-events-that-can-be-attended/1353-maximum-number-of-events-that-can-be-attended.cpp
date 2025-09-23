@@ -3,8 +3,8 @@ public:
     int maxEvents(vector<vector<int>>& events) {
 
             sort(events.begin(),events.end());
-
-            // Min heap
+            
+            //Min heap
             //end day
             
             priority_queue<int,vector<int>,greater<int>>pq;
@@ -26,7 +26,7 @@ public:
                     i++;
                 }
 
-                if(!pq.empty())
+                if(!pq.empty()&& pq.top()>=day)
                 {
                     event++;
                     pq.pop();                  
