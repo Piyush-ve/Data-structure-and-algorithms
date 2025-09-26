@@ -1,5 +1,47 @@
 class Solution {
 public:
+    bool helper(string s, int i, int count, int n, vector<vector<int>>&dp)
+    {
+        if(i==n )
+        return count==0;
+        
+        if(count<0)
+        return false;
+
+        if(dp[i][count]!=-1)
+        {
+            return dp[i][count];
+        }
+
+        bool ans=false;
+
+        if(s[i]=='(')
+        {
+            ans=helper(s, i+1, count+1, n,dp);
+        }
+        else if(s[i]==')')
+        {
+            ans= helper(s, i+1,count-1, n,dp);
+        }
+        else if(s[i]=='*')
+        {
+            bool option1= helper(s, i+1, count+1, n,dp); // * = (
+            bool option2= helper(s, i+1, count-1, n,dp); // * = )
+            bool option3= helper(s, i+1, count, n, dp); // * = emmpty
+
+            ans= option1|| option2 ||option3;
+        }
+
+        return dp[i][count]=ans;
+    }
+    bool checkValidString(string s) {
+        vector<vector<int>>dp(s.size(),vector<int>(s.size(),-1));
+        return helper(s,0,0,s.size(),dp);
+    }
+};
+
+/*class Solution {
+public:
     bool checkValidString(string s) {
         
         stack<char>st;
@@ -85,3 +127,5 @@ public:
         return st.size()==0?true:false;
     }
 };
+
+*/
