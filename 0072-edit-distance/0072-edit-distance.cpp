@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int rec(string word1,int n, string word2, int m)
+    int rec(string word1,int n, string word2, int m,  vector<vector<int>>&dp)
     {
         if(n==0)
         {
@@ -11,17 +11,21 @@ public:
             return n;
         }
         
+        if(dp[n][m]!=-1)
+        {
+            return dp[n][m];
+        }
         if(word1[n-1]==word2[m-1])
         {
-            return rec(word1, n-1, word2, m-1);
+            return dp[n][m]= rec(word1, n-1, word2, m-1,dp);
         }
         else
         {
-            int ans1=rec(word1, n, word2, m-1)+1;
-            int ans2=rec(word1, n-1, word2, m)+1;
-            int ans3=rec(word1, n-1, word2, m-1)+1;
+            int ans1=rec(word1, n, word2, m-1,dp)+1;
+            int ans2=rec(word1, n-1, word2, m,dp)+1;
+            int ans3=rec(word1, n-1, word2, m-1,dp)+1;
 
-            return min(ans1, min(ans2, ans3));
+            return dp[n][m]=min(ans1, min(ans2, ans3));
         }
     }
 
@@ -65,9 +69,9 @@ public:
         int n=word1.size();
         int m=word2.size();
 
-    //    vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
 
 
-      return rec(word1, n, word2, m);
+      return rec(word1, n, word2, m, dp);
     }
 };
