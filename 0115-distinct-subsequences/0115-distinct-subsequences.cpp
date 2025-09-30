@@ -31,32 +31,37 @@ public:
 
     int tabulation(string s, int m, string t, int n)
     {
-        vector<vector<unsigned long long>>dp(m+1, vector<unsigned long long>(n+1,0));
+       /*vector<vector<unsigned long long>>dp(m+1, vector<unsigned long long>(n+1,0));
         dp[0][0]=1;
         for(int i=0;i<=m;i++)
         {
             dp[i][0]=1;
         }
-
+        */
+        vector<unsigned long long>dp(n+1,0);
+        dp[0]=1;
         for(int i=1;i<=m;i++)
         {
+            vector<unsigned long long>temp(n+1,0);
+            temp[0]=1;
             char ch=s[i-1];
             for(int j=1;j<=n;j++)
             {
                 char ch2=t[j-1];
                 if(ch==ch2)
                 {
-                    unsigned long long  pick=dp[i-1][j-1];
-                    unsigned long long  noPick=dp[i-1][j];
-                    dp[i][j]=pick+noPick;
+                    unsigned long long  pick=dp[j-1];
+                    unsigned long long  noPick=dp[j];
+                    temp[j]=pick+noPick;
                 }
                 else
                 {
-                    dp[i][j]=dp[i-1][j];
+                    temp[j]=dp[j];
                 }
             }
+            dp=temp;
         }
-        return dp[m][n];
+        return dp[n];
     }
     int numDistinct(string s, string t) {
         int m=s.size();
