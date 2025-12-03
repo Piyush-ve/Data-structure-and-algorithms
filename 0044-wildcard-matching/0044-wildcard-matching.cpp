@@ -1,36 +1,36 @@
 class Solution {
 public:
-
     bool isMatch(string s, string p) {
-        int m=s.size();
-        int n=p.size();
+        int n=s.size();
+        int m= p.size();
 
-        vector<vector<bool>>dp(m+1,vector<bool>(n+1,false));
+        vector<vector<int>>dp(n+1,vector<int>(m+1,false));
 
         dp[0][0]=true;
+        for(int i=1;i<=m;i++)
+        {
+            if(p[i-1]=='*')
+                dp[0][i]=dp[0][i-1];
+            else
+            {
+                dp[0][i]=false;
+            }
+        }
+
 
         for(int i=1;i<=n;i++)
         {
-            if(p[i-1]=='*' && dp[0][i-1]==true)
-            {
-                dp[0][i]=true;
-            }
-
-        }
-
-        for(int i=1;i<=m;i++)
-        {
             char ch=s[i-1];
-            for(int j=1;j<=n;j++)
+            for(int j=1;j<=m;j++)
             {
-                char pCh=p[j-1];
-                if(ch==pCh || pCh=='?')
+                char pat=p[j-1];
+                if(ch==pat || pat=='?')
                 {
                     dp[i][j]=dp[i-1][j-1];
                 }
-                else if(pCh=='*')
+                else if(pat=='*')
                 {
-                    dp[i][j]=(dp[i-1][j-1] || dp[i][j-1] ||dp[i-1][j]);
+                    dp[i][j]=(dp[i-1][j-1]||dp[i-1][j]||dp[i][j-1]);
                 }
                 else
                 {
@@ -38,6 +38,7 @@ public:
                 }
             }
         }
-        return dp[m][n];
+        return dp[n][m];
+
     }
 };
