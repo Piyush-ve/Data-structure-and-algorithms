@@ -1,12 +1,6 @@
-class Solution(object):
-    def closeStrings(self, word1, word2):
-        """
-        :type word1: str
-        :type word2: str
-        :rtype: bool
-        """
-
-        # step1 store the occurence of each character 
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+                # step1 store the occurence of each character 
         # step2 now store them into list and comapre list if list = another list then return true
 
         dict1= {}
@@ -33,11 +27,11 @@ class Solution(object):
             
             j+=1
 
-        l1=dict1.values()
-        l2=dict2.values()
+        l1 = list(dict1.values())
+        l2 = list(dict2.values())
 
-        k1=dict1.keys()
-        k2=dict2.keys()
+        k1 = list(dict1.keys())
+        k2 = list(dict2.keys())
 
         k1.sort()
         k2.sort()
@@ -49,9 +43,3 @@ class Solution(object):
             return True
         else:
             return False
-
-
-
-
-
-        
