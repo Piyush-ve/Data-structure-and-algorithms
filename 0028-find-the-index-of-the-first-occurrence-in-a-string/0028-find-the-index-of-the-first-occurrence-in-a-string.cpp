@@ -1,27 +1,56 @@
 class Solution {
 public:
-    int strStr(string haystack, string needle) {
-        int n = haystack.size();
-        int  m = needle.size();
+    void computeLPS(string &pat, vector<int>& lps, int m) {
+        int len = 0;
+        lps[0] = 0;
 
-        if( m == 0){
-            return 0;
-        }
-
-
-        for(int i = 0; i <=n-m ; i++){
-            int j = 0;
-            for( ; j < m ; j++)
-            {
-                if(haystack[i+j] != needle[j]){
-                  
-                    break;
+        int i = 1;
+        while (i < m) {
+            if (pat[i] == pat[len]) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
                 }
             }
-            if(j == m){
-                return i;
-            }
+        }
     }
-    return -1;
+
+    int strStr(string haystack, string needle) {
+        int n = haystack.size();
+        int m = needle.size();
+
+        if (m == 0) return 0;
+
+        vector<int> lps(m, 0);
+        computeLPS(needle, lps, m);
+
+        int i = 0, j = 0;
+
+        while (i < n) {
+            if (haystack[i] == needle[j]) {
+                i++;
+                j++;
+            }
+
+            if (j == m) {
+                return i - m;   // ✅ correct index
+                  //result.push_back(i-m-1);
+                //j=LPS[j-1]
+            }
+            else if (i < n && haystack[i] != needle[j]) {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+        return -1;
     }
 };
